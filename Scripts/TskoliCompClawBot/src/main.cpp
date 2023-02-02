@@ -16,6 +16,10 @@
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
 // Drivetrain           drivetrain    1, 10           
+// group_arm            motor_group   8, 7            
+// arm_extensions       motor_group   6, 5            
+// right_arm_3wire      motor29       C               
+// left_arm_3wire       motor29       D               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -42,9 +46,43 @@ int cageLift(){
   }
   return 0;
 }
-
+int armControll(){
+  while(true){
+    if(Controller1.Axis1.position(percent) == 0){
+      group_arm.stop(hold);
+      right_arm_3wire.stop();
+      left_arm_3wire.stop();
+    }
+    else{
+      group_arm.spin(forward,Controller1.Axis1.position(percent),pct);
+      if(Controller1.Axis1.position(percent) > 0){
+        right_arm_3wire.spin(forward);
+        left_arm_3wire.spin(forward);
+      }else{
+        right_arm_3wire.stop();
+        left_arm_3wire.stop();
+      }
+    }
+    if(Controller1.Axis2.position(percent) == 0){
+      arm_extensions.stop(hold);
+    }else{
+      arm_extensions.spin(forward,Controller1.Axis2.position(percent),pct);
+    }
+  }
+  return 0;
+}
+int postInfo(){
+  while(true){
+    Brain.Screen.setCursor(2,1);
+    Brain.Screen.print(Controller1.Axis1.position(percent));
+  }
+  return 0;
+}
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  group_arm.setRotation(0,degrees);
   task cage_task(cageLift);
+  task arms_task(armControll);
+  task info_task(postInfo);
 }
