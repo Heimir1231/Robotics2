@@ -9,17 +9,21 @@ brain  Brain;
 
 // VEXcode device constructors
 controller Controller1 = controller(primary);
-motor LeftDriveSmart = motor(PORT1, ratio18_1, false);
-motor RightDriveSmart = motor(PORT10, ratio18_1, true);
+motor LeftDriveSmart = motor(PORT5, ratio18_1, false);
+motor RightDriveSmart = motor(PORT6, ratio18_1, true);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
-motor group_armMotorA = motor(PORT8, ratio18_1, true);
-motor group_armMotorB = motor(PORT7, ratio18_1, false);
+motor group_armMotorA = motor(PORT1, ratio36_1, true);
+motor group_armMotorB = motor(PORT10, ratio36_1, false);
 motor_group group_arm = motor_group(group_armMotorA, group_armMotorB);
-motor arm_extensionsMotorA = motor(PORT6, ratio18_1, false);
-motor arm_extensionsMotorB = motor(PORT5, ratio18_1, false);
+motor arm_extensionsMotorA = motor(PORT9, ratio18_1, false);
+motor arm_extensionsMotorB = motor(PORT4, ratio18_1, false);
 motor_group arm_extensions = motor_group(arm_extensionsMotorA, arm_extensionsMotorB);
-motor29 right_arm_3wire = motor29(Brain.ThreeWirePort.C, true);
-motor29 left_arm_3wire = motor29(Brain.ThreeWirePort.D, false);
+motor29 Cage1 = motor29(Brain.ThreeWirePort.A, false);
+motor29 Cage2 = motor29(Brain.ThreeWirePort.B, false);
+gyro cage_gyro = gyro(Brain.ThreeWirePort.H);
+motor cage_stabilizerMotorA = motor(PORT2, ratio18_1, false);
+motor cage_stabilizerMotorB = motor(PORT8, ratio18_1, true);
+motor_group cage_stabilizer = motor_group(cage_stabilizerMotorA, cage_stabilizerMotorB);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
