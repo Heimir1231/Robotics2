@@ -5,22 +5,17 @@ extern brain Brain;
 using signature = vision::signature;
 
 // VEXcode devices
-extern controller Controller1;
-extern drivetrain Drivetrain;
-extern motor_group group_arm;
-extern motor_group arm_extensions;
-extern motor29 Cage1;
-extern motor29 Cage2;
-extern gyro cage_gyro;
-extern motor_group cage_stabilizer;
 extern signature main_camera__CUBE_ORANGE;
 extern signature main_camera__CUBE_PURPLE;
 extern signature main_camera__CUBE_GREEN;
-extern signature main_camera__GOAL_RED;
+extern signature main_camera__SIG_4;
 extern signature main_camera__SIG_5;
 extern signature main_camera__SIG_6;
 extern signature main_camera__SIG_7;
 extern vision main_camera;
+extern drivetrain Drivetrain;
+extern motor_group arms_group;
+extern motor29 claw;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

@@ -22,6 +22,7 @@
 // Cage2                motor29       B               
 // cage_gyro            gyro          H               
 // cage_stabilizer      motor_group   2, 8            
+// main_camera          vision        3               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 #include "vex.h"
 using namespace vex;
@@ -50,33 +51,16 @@ int armControll(){
       group_arm.stop(hold);
     }
     else{
-      group_arm.spin(forward,Controller1.Axis2.position(percent),pct);
+      group_arm.spin(forward,Controller1.Axis2.position(percent)*2,percent);
     }
     if(Controller1.Axis1.position(percent) == 0){
       arm_extensions.stop(hold);
     }else{
-      arm_extensions.spin(forward,Controller1.Axis1.position(percent),pct);
+      arm_extensions.spin(forward,Controller1.Axis1.position(percent)*2,percent);
     }
   }
   return 0;
 }
-/*
-Boiler plate for when the cage gyro is connected
-
-int stabalizeCage(){
-  while(true){
-    double rotation_percent = (cage_gyro.rotation(deg)/360)*100;
-    if(rotation_percent != 0){
-      cage_stabilizer.spin(forward,-rotation_percent,pct);
-    }
-    else{
-      cage_stabilizer.stop(hold);
-    }
-  }
-  return 0;
-}
-*/
-
 int manualStabalize(){
   while(true){
     if(Controller1.ButtonR1.pressing()){cage_stabilizer.spin(forward,20,pct);}
@@ -93,7 +77,15 @@ int postInfo(){
     Brain.Screen.newLine();
     Brain.Screen.print(arm_extensions.position(degrees));
     Brain.Screen.newLine();
-    Brain.Screen.print(cage_stabilizer.torque(Nm));
+    Brain.Screen.print(group_arm.torque(Nm));
+    Brain.Screen.newLine();
+    Brain.Screen.print(Controller1.Axis2.position(percent));
+  }
+  return 0;
+}
+int botVision(){
+  while(true){
+    
   }
   return 0;
 }
